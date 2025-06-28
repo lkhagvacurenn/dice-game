@@ -6,12 +6,6 @@ var activePlayer = 0;
 
 var scores = [0, 0];
 
-// Toglogchiin eeljindee tsugluulsan onoo
-
-var roundScore = 0;
-
-// Buusan shoonii too
-
 
 document.querySelector('#score-0').textContent = 0;
 
@@ -24,6 +18,8 @@ diceDom.style.display = 'none';
 
 document.querySelector('.btn-roll').addEventListener('click', ShooShid);
 
+var roundScore=0 ;
+
 function ShooShid() {
 
     var diceNum = Math.floor(Math.random() * 6) + 1;
@@ -31,4 +27,19 @@ function ShooShid() {
     diceDom.style.display = 'block';
 
     diceDom.src = "dice-" + diceNum + ".png";
+
+    document.querySelector('#score-' + activePlayer).textContent = diceNum;
+
+    if (diceNum!==1) {
+        roundScore = roundScore + diceNum; 
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {     
+        roundScore = 0; 
+        document.querySelector('#score-' + activePlayer).textContent = 0;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('active');
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('active');
+
+    }
 }
